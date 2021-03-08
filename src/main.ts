@@ -1,12 +1,14 @@
 import * as core from '@actions/core'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import tz from 'dayjs/plugin/timezone'
 import {HolidayType, holidays} from './holiday'
 
+dayjs.extend(utc)
 dayjs.extend(tz)
 
 async function run(): Promise<void> {
-  const date = new dayjs.Dayjs().tz('Asia/Shanghai')
+  const date = dayjs().tz('Asia/Shanghai')
   const dateKey = date.format('YYYY-MM-DD')
   let holiday: HolidayType = HolidayType.WORKDAY
 
